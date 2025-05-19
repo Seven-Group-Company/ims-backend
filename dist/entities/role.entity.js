@@ -19,7 +19,7 @@ let Role = class Role {
 };
 exports.Role = Role;
 __decorate([
-    (0, typeorm_1.Column)({ primary: true, generated: 'uuid' }),
+    (0, typeorm_1.Column)({ primary: true, type: 'uuid', generated: 'uuid' }),
     __metadata("design:type", String)
 ], Role.prototype, "id", void 0);
 __decorate([

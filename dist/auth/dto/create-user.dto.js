@@ -9,45 +9,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.User = void 0;
-const typeorm_1 = require("typeorm");
-const company_entity_1 = require("./company.entity");
-const role_entity_1 = require("./role.entity");
-let User = class User {
-    id;
+exports.CreateUserDto = void 0;
+const class_validator_1 = require("class-validator");
+class CreateUserDto {
     email;
     password;
     fullName;
     company;
-    roles;
-};
-exports.User = User;
+}
+exports.CreateUserDto = CreateUserDto;
 __decorate([
-    (0, typeorm_1.Column)({ primary: true, type: 'uuid', generated: 'uuid' }),
+    (0, class_validator_1.IsEmail)(),
     __metadata("design:type", String)
-], User.prototype, "id", void 0);
+], CreateUserDto.prototype, "email", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ unique: true }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MinLength)(8),
     __metadata("design:type", String)
-], User.prototype, "email", void 0);
+], CreateUserDto.prototype, "password", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], User.prototype, "password", void 0);
+], CreateUserDto.prototype, "fullName", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], User.prototype, "fullName", void 0);
-__decorate([
-    (0, typeorm_1.ManyToOne)(() => company_entity_1.Company, company => company.users),
-    __metadata("design:type", company_entity_1.Company)
-], User.prototype, "company", void 0);
-__decorate([
-    (0, typeorm_1.ManyToMany)(() => role_entity_1.Role),
-    (0, typeorm_1.JoinTable)(),
-    __metadata("design:type", Array)
-], User.prototype, "roles", void 0);
-exports.User = User = __decorate([
-    (0, typeorm_1.Entity)()
-], User);
-//# sourceMappingURL=user.entity.js.map
+], CreateUserDto.prototype, "company", void 0);
+//# sourceMappingURL=create-user.dto.js.map

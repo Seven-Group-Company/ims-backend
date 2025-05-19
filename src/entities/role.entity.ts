@@ -3,8 +3,8 @@ import { Permission } from './permission.entity';
 
 @Entity()
 export class Role {
-  @Column({ primary: true, generated: 'uuid' })
-  id: string;
+@Column({ primary: true, type: 'uuid', generated: 'uuid' })
+id: string;
 
   @Column({ unique: true })
   name: string; // 'Admin', 'Manager', 'User'

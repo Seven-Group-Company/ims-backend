@@ -3,8 +3,8 @@ import { User } from './user.entity';
 
 @Entity()
 export class Company {
-  @Column({ primary: true, generated: 'uuid' })
-  id: string;
+@Column({ primary: true, type: 'uuid', generated: 'uuid' })
+id: string;
 
   @Column()
   name: string;

@@ -4,8 +4,8 @@ import { Role } from './role.entity';
 
 @Entity()
 export class User {
-  @Column({ primary: true, generated: 'uuid' })
-  id: string;
+@Column({ primary: true, type: 'uuid', generated: 'uuid' })
+id: string;
 
   @Column({ unique: true })
   email: string;
