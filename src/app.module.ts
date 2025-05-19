@@ -1,3 +1,4 @@
+// src/app.module.ts
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -6,6 +7,7 @@ import { User } from './entities/user.entity';
 import { Company } from './entities/company.entity';
 import { Role } from './entities/role.entity';
 import { Permission } from './entities/permission.entity';
+import { SeederService } from './database/seeder.service';
 
 @Module({
   imports: [
@@ -16,7 +18,9 @@ import { Permission } from './entities/permission.entity';
       entities: [User, Company, Role, Permission],
       synchronize: true,
     }),
+    TypeOrmModule.forFeature([Role, Permission]), // Add this line
     AuthModule,
   ],
+  providers: [SeederService],
 })
 export class AppModule {}

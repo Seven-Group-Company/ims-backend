@@ -1,4 +1,4 @@
 export declare const jwtConstants: {
-    secret: string | undefined;
+    secret: string;
     expiresIn: string;
 };

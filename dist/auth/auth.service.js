@@ -40,7 +40,7 @@ let AuthService = class AuthService {
             password: hashedPassword,
             fullName: createUserDto.fullName,
             company,
-            roles: await this.assignInitialRoles(company),
+            roles: await this.assignInitialRoles(),
         });
         await this.usersRepository.save(user);
         return this.generateToken(user);
@@ -48,15 +48,19 @@ let AuthService = class AuthService {
     async createCompany(name) {
         return this.companyRepository.save({ name });
     }
-    async assignInitialRoles(company) {
-        const adminRole = await this.roleRepository.findOne({
+    async assignInitialRoles() {
+        const defaultRole = await this.roleRepository.findOne({
             where: { name: 'Admin' },
             relations: ['permissions']
         });
-        if (!adminRole) {
-            throw new Error('Default roles not configured');
+        if (!defaultRole) {
+            const userRole = this.roleRepository.create({
+                name: 'User',
+                permissions: []
+            });
+            return [await this.roleRepository.save(userRole)];
         }
-        return [adminRole];
+        return [defaultRole];
     }
     generateToken(user) {
         const payload = {

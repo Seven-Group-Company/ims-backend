@@ -15,6 +15,7 @@ const user_entity_1 = require("./entities/user.entity");
 const company_entity_1 = require("./entities/company.entity");
 const role_entity_1 = require("./entities/role.entity");
 const permission_entity_1 = require("./entities/permission.entity");
+const seeder_service_1 = require("./database/seeder.service");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -28,8 +29,10 @@ exports.AppModule = AppModule = __decorate([
                 entities: [user_entity_1.User, company_entity_1.Company, role_entity_1.Role, permission_entity_1.Permission],
                 synchronize: true,
             }),
+            typeorm_1.TypeOrmModule.forFeature([role_entity_1.Role, permission_entity_1.Permission]),
             auth_module_1.AuthModule,
         ],
+        providers: [seeder_service_1.SeederService],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map

@@ -1,3 +1,4 @@
+// src/auth/auth.service.ts
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -29,7 +30,7 @@ export class AuthService {
       password: hashedPassword,
       fullName: createUserDto.fullName,
       company,
-      roles: await this.assignInitialRoles(company),
+      roles: await this.assignInitialRoles(),
     });
 
     await this.usersRepository.save(user);
@@ -40,17 +41,22 @@ export class AuthService {
     return this.companyRepository.save({ name });
   }
 
-  private async assignInitialRoles(company: Company): Promise<Role[]> {
-    const adminRole = await this.roleRepository.findOne({ 
+  private async assignInitialRoles(): Promise<Role[]> {
+    const defaultRole = await this.roleRepository.findOne({ 
       where: { name: 'Admin' },
       relations: ['permissions']
     });
     
-    if (!adminRole) {
-      throw new Error('Default roles not configured');
+    if (!defaultRole) {
+      // If no roles exist, create a basic user role
+      const userRole = this.roleRepository.create({
+        name: 'User',
+        permissions: []
+      });
+      return [await this.roleRepository.save(userRole)];
     }
     
-    return [adminRole];
+    return [defaultRole];
   }
 
   private generateToken(user: User): { accessToken: string } {
