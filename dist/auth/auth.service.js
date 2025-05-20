@@ -13,7 +13,6 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthService = void 0;
-const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const bcrypt = require("bcrypt");
@@ -21,6 +20,7 @@ const jwt_1 = require("@nestjs/jwt");
 const user_entity_1 = require("../entities/user.entity");
 const company_entity_1 = require("../entities/company.entity");
 const role_entity_1 = require("../entities/role.entity");
+const common_1 = require("@nestjs/common");
 let AuthService = class AuthService {
     usersRepository;
     companyRepository;
@@ -33,34 +33,59 @@ let AuthService = class AuthService {
         this.jwtService = jwtService;
     }
     async register(createUserDto) {
-        const company = await this.createCompany(createUserDto.company);
-        const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
-        const user = this.usersRepository.create({
-            email: createUserDto.email,
-            password: hashedPassword,
-            fullName: createUserDto.fullName,
-            company,
-            roles: await this.assignInitialRoles(),
-        });
-        await this.usersRepository.save(user);
-        return this.generateToken(user);
+        try {
+            const existingUser = await this.usersRepository.findOne({
+                where: { email: createUserDto.email }
+            });
+            if (existingUser) {
+                throw new common_1.ConflictException('Email already registered');
+            }
+            const existingCompany = await this.companyRepository.findOne({
+                where: { name: createUserDto.company }
+            });
+            if (existingCompany) {
+                throw new common_1.ConflictException('Company name already exists');
+            }
+            const company = await this.createCompany(createUserDto.company);
+            const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
+            const user = this.usersRepository.create({
+                email: createUserDto.email,
+                password: hashedPassword,
+                fullName: createUserDto.fullName,
+                company,
+                roles: await this.assignInitialRoles(),
+            });
+            await this.usersRepository.save(user);
+            return this.generateToken(user);
+        }
+        catch (error) {
+            if (error instanceof common_1.ConflictException) {
+                throw error;
+            }
+            throw new common_1.InternalServerErrorException('Registration failed');
+        }
     }
     async login(email, password) {
-        const user = await this.usersRepository.findOne({
-            where: { email },
-            relations: ['roles', 'roles.permissions', 'company'],
-        });
-        if (!user) {
-            throw new Error('Invalid credentials');
+        try {
+            const user = await this.usersRepository.findOne({
+                where: { email },
+                relations: ['roles', 'roles.permissions', 'company'],
+            });
+            if (!user) {
+                throw new common_1.UnauthorizedException('Invalid credentials');
+            }
+            const isPasswordValid = await bcrypt.compare(password, user.password);
+            if (!isPasswordValid) {
+                throw new common_1.UnauthorizedException('Invalid credentials');
+            }
+            return {
+                accessToken: this.generateToken(user).accessToken,
+                user,
+            };
         }
-        const isPasswordValid = await bcrypt.compare(password, user.password);
-        if (!isPasswordValid) {
-            throw new Error('Invalid credentials');
+        catch (error) {
+            throw new common_1.InternalServerErrorException('Login failed');
         }
-        return {
-            accessToken: this.generateToken(user).accessToken,
-            user,
-        };
     }
     async getMe(email) {
         return this.usersRepository.findOne({

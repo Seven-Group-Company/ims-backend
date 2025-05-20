@@ -1,5 +1,3 @@
-// src/auth/auth.service.ts
-import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
@@ -8,6 +6,12 @@ import { User } from '../entities/user.entity';
 import { Company } from '../entities/company.entity';
 import { Role } from '../entities/role.entity';
 import { CreateUserDto } from './dto/create-user.dto';
+import { 
+  ConflictException,
+  Injectable, 
+  InternalServerErrorException,
+  UnauthorizedException 
+} from '@nestjs/common';
 
 @Injectable()
 export class AuthService {
@@ -22,41 +26,68 @@ export class AuthService {
   ) {}
 
   async register(createUserDto: CreateUserDto): Promise<{ accessToken: string }> {
-    const company = await this.createCompany(createUserDto.company);
-    const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
-    
-    const user = this.usersRepository.create({
-      email: createUserDto.email,
-      password: hashedPassword,
-      fullName: createUserDto.fullName,
-      company,
-      roles: await this.assignInitialRoles(),
-    });
+    try {
+      // Check if email already exists
+      const existingUser = await this.usersRepository.findOne({ 
+        where: { email: createUserDto.email } 
+      });
+      if (existingUser) {
+        throw new ConflictException('Email already registered');
+      }
 
-    await this.usersRepository.save(user);
-    return this.generateToken(user);
+      // Check if company name already exists
+      const existingCompany = await this.companyRepository.findOne({
+        where: { name: createUserDto.company }
+      });
+      if (existingCompany) {
+        throw new ConflictException('Company name already exists');
+      }
+
+      const company = await this.createCompany(createUserDto.company);
+      const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
+      
+      const user = this.usersRepository.create({
+        email: createUserDto.email,
+        password: hashedPassword,
+        fullName: createUserDto.fullName,
+        company,
+        roles: await this.assignInitialRoles(),
+      });
+
+      await this.usersRepository.save(user);
+      return this.generateToken(user);
+    } catch (error) {
+      if (error instanceof ConflictException) {
+        throw error;
+      }
+      throw new InternalServerErrorException('Registration failed');
+    }
   }
 
-async login(email: string, password: string): Promise<{ accessToken: string, user: User }> {
-  const user = await this.usersRepository.findOne({
-    where: { email },
-    relations: ['roles', 'roles.permissions', 'company'],
-  });
+  async login(email: string, password: string): Promise<{ accessToken: string, user: User }> {
+    try {
+      const user = await this.usersRepository.findOne({
+        where: { email },
+        relations: ['roles', 'roles.permissions', 'company'],
+      });
 
-  if (!user) {
-    throw new Error('Invalid credentials');
+      if (!user) {
+        throw new UnauthorizedException('Invalid credentials');
+      }
+
+      const isPasswordValid = await bcrypt.compare(password, user.password);
+      if (!isPasswordValid) {
+        throw new UnauthorizedException('Invalid credentials');
+      }
+
+      return {
+        accessToken: this.generateToken(user).accessToken,
+        user,
+      };
+    } catch (error) {
+      throw new InternalServerErrorException('Login failed');
+    }
   }
-
-  const isPasswordValid = await bcrypt.compare(password, user.password);
-  if (!isPasswordValid) {
-    throw new Error('Invalid credentials');
-  }
-
-  return {
-    accessToken: this.generateToken(user).accessToken,
-    user,
-  };
-}
 
   async getMe(email: string): Promise<User | null> {
     return this.usersRepository.findOne({
