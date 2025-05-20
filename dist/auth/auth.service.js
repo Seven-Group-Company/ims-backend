@@ -45,6 +45,26 @@ let AuthService = class AuthService {
         await this.usersRepository.save(user);
         return this.generateToken(user);
     }
+    async login(email, password) {
+        const user = await this.usersRepository.findOne({
+            where: { email },
+            relations: ['roles', 'roles.permissions'],
+        });
+        if (!user) {
+            throw new Error('Invalid credentials');
+        }
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (!isPasswordValid) {
+            throw new Error('Invalid credentials');
+        }
+        return this.generateToken(user);
+    }
+    async getMe(email) {
+        return this.usersRepository.findOne({
+            where: { email },
+            relations: ['roles', 'roles.permissions', 'company'],
+        });
+    }
     async createCompany(name) {
         return this.companyRepository.save({ name });
     }

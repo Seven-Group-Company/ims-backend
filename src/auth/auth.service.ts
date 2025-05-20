@@ -37,6 +37,31 @@ export class AuthService {
     return this.generateToken(user);
   }
 
+  async login(email: string, password: string): Promise<{ accessToken: string }> {
+    const user = await this.usersRepository.findOne({
+      where: { email },
+      relations: ['roles', 'roles.permissions'],
+    });
+
+    if (!user) {
+      throw new Error('Invalid credentials');
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      throw new Error('Invalid credentials');
+    }
+
+    return this.generateToken(user);
+  }
+
+  async getMe(email: string): Promise<User | null> {
+    return this.usersRepository.findOne({
+      where: { email },
+      relations: ['roles', 'roles.permissions', 'company'],
+    });
+  }
+
   private async createCompany(name: string): Promise<Company> {
     return this.companyRepository.save({ name });
   }
