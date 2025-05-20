@@ -29,4 +29,11 @@ export class AuthController {
     }
     return this.authService.getMe(email);
   }
+
+    @Post('refresh')
+  async refresh(@Req() req: Request) {
+    // You may want to get the refresh token from cookies or body
+    const refreshToken = req.body.refreshToken || req.cookies?.refreshToken;
+    return this.authService.refreshToken(refreshToken);
+  }
 }

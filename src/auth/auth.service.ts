@@ -1,5 +1,5 @@
 // src/auth/auth.service.ts
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
@@ -97,5 +97,25 @@ export class AuthService {
     return {
       accessToken: this.jwtService.sign(payload),
     };
+  }
+
+    async refreshToken(refreshToken: string): Promise<{ accessToken: string }> {
+    if (!refreshToken) {
+      throw new UnauthorizedException('No refresh token provided');
+    }
+    // Validate the refresh token (implement your logic here)
+    // For example, verify JWT and find user
+    try {
+      const payload = this.jwtService.verify(refreshToken, { secret: process.env.JWT_SECRET });
+      // Optionally, check if the token is in a whitelist or not expired
+      const user = await this.usersRepository.findOne({ where: { id: payload.sub } });
+      if (!user) throw new UnauthorizedException('User not found');
+      // Issue a new access token
+      const newPayload = { sub: user.id, email: user.email, roles: user.roles.map(r => r.name) };
+      const accessToken = this.jwtService.sign(newPayload);
+      return { accessToken };
+    } catch (e) {
+      throw new UnauthorizedException('Invalid refresh token');
+    }
   }
 }
