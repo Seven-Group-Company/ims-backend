@@ -15,6 +15,16 @@ export class AuthController {
     return this.authService.register(createUserDto);
   }
 
+    @Get('verify-email')
+  async verifyEmail(@Query('token') token: string) {
+    return this.authService.verifyEmail(token);
+  }
+
+  @Post('resend-verification')
+  async resendVerificationEmail(@Body() { email }: { email: string }) {
+    return this.authService.resendVerificationEmail(email);
+  }
+
   @Post('login')
   async login(@Body() loginDto: LoginDto) {
     return this.authService.login(loginDto.email, loginDto.password);
@@ -35,4 +45,8 @@ export class AuthController {
     const refreshToken = req.body.refreshToken || req.cookies?.refreshToken;
     return this.authService.refreshToken(refreshToken);
   }
+}
+
+function Query(arg0: string): (target: AuthController, propertyKey: "verifyEmail", parameterIndex: 0) => void {
+  throw new Error('Function not implemented.');
 }

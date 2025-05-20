@@ -22,4 +22,13 @@ id: string;
   @ManyToMany(() => Role)
   @JoinTable()
   roles: Role[];
+
+    @Column({ default: false })
+  isVerified: boolean;
+
+  @Column({ nullable: true })
+  verificationToken: string;
+
+  @Column({ type: 'timestamp', nullable: true })
+  verificationTokenExpiry: Date;
 }

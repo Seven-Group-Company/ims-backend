@@ -10,11 +10,19 @@ import {
   ConflictException,
   Injectable, 
   InternalServerErrorException,
-  UnauthorizedException 
+  UnauthorizedException,
+  BadRequestException,
+  NotFoundException
 } from '@nestjs/common';
+import { Throttle } from '@nestjs/throttler';
+import * as crypto from 'crypto';
+import { Logger } from '@nestjs/common';
+import { EmailService } from './email.service';
 
 @Injectable()
 export class AuthService {
+  private readonly logger = new Logger(AuthService.name);
+
   constructor(
     @InjectRepository(User)
     private usersRepository: Repository<User>,
@@ -23,6 +31,7 @@ export class AuthService {
     @InjectRepository(Role)
     private roleRepository: Repository<Role>,
     private jwtService: JwtService,
+    private emailService: EmailService,
   ) {}
 
   async register(createUserDto: CreateUserDto): Promise<{ accessToken: string }> {
@@ -54,7 +63,21 @@ export class AuthService {
         roles: await this.assignInitialRoles(),
       });
 
+      
+
       await this.usersRepository.save(user);
+
+    const verificationToken = crypto.randomBytes(32).toString('hex');
+    const verificationTokenExpiry = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
+
+    await this.usersRepository.update(user.id, {
+      verificationToken,
+      verificationTokenExpiry,
+    });
+
+    // Send verification email
+    await this.emailService.sendVerificationEmail(user, verificationToken);
+
       return this.generateToken(user);
     } catch (error) {
       if (error instanceof ConflictException) {
@@ -62,6 +85,60 @@ export class AuthService {
       }
       throw new InternalServerErrorException('Registration failed');
     }
+  }
+
+    async verifyEmail(token: string) {
+    this.logger.log(`Verification attempt for token: ${token}`);
+    
+    const user = await this.usersRepository.findOne({
+      where: { verificationToken: token },
+    });
+
+    if (!user) {
+      this.logger.warn(`Invalid verification token: ${token}`);
+      throw new BadRequestException('Invalid verification token');
+    }
+
+    if (user.verificationTokenExpiry < new Date()) {
+      this.logger.warn(`Expired verification token: ${token}`);
+      throw new BadRequestException('Verification link has expired');
+    }
+
+    await this.usersRepository.update(user.id, {
+      isVerified: true,
+      verificationToken: undefined,
+      verificationTokenExpiry: undefined,
+    });
+
+    this.logger.log(`Email verified for user: ${user.email}`);
+    return { message: 'Email verified successfully' };
+  }
+
+  async resendVerificationEmail(email: string) {
+    this.logger.log(`Resend verification requested for: ${email}`);
+    
+    const user = await this.usersRepository.findOne({ where: { email } });
+    
+    if (!user) {
+      this.logger.warn(`Resend attempt for non-existent email: ${email}`);
+      throw new NotFoundException('User not found');
+    }
+    
+    if (user.isVerified) {
+      this.logger.warn(`Resend attempt for verified email: ${email}`);
+      throw new BadRequestException('Email already verified');
+    }
+
+    // Generate new token
+    const verificationToken = crypto.randomBytes(32).toString('hex');
+    const verificationTokenExpiry = new Date(Date.now() + 24 * 60 * 60 * 1000);
+
+    await this.usersRepository.update(user.id, {
+      verificationToken,
+      verificationTokenExpiry,
+    });
+
+    await this.emailService.sendVerificationEmail(user, verificationToken);
   }
 
   async login(email: string, password: string): Promise<{ accessToken: string, user: User }> {

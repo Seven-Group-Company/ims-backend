@@ -9,6 +9,7 @@ import { Role } from './entities/role.entity';
 import { Permission } from './entities/permission.entity';
 import { SeederService } from './database/seeder.service';
 
+
 @Module({
   imports: [
     ConfigModule.forRoot(),
