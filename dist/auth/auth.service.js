@@ -48,7 +48,7 @@ let AuthService = class AuthService {
     async login(email, password) {
         const user = await this.usersRepository.findOne({
             where: { email },
-            relations: ['roles', 'roles.permissions'],
+            relations: ['roles', 'roles.permissions', 'company'],
         });
         if (!user) {
             throw new Error('Invalid credentials');
@@ -57,7 +57,10 @@ let AuthService = class AuthService {
         if (!isPasswordValid) {
             throw new Error('Invalid credentials');
         }
-        return this.generateToken(user);
+        return {
+            accessToken: this.generateToken(user).accessToken,
+            user,
+        };
     }
     async getMe(email) {
         return this.usersRepository.findOne({
@@ -92,6 +95,23 @@ let AuthService = class AuthService {
         return {
             accessToken: this.jwtService.sign(payload),
         };
+    }
+    async refreshToken(refreshToken) {
+        if (!refreshToken) {
+            throw new common_1.UnauthorizedException('No refresh token provided');
+        }
+        try {
+            const payload = this.jwtService.verify(refreshToken, { secret: process.env.JWT_SECRET });
+            const user = await this.usersRepository.findOne({ where: { id: payload.sub } });
+            if (!user)
+                throw new common_1.UnauthorizedException('User not found');
+            const newPayload = { sub: user.id, email: user.email, roles: user.roles.map(r => r.name) };
+            const accessToken = this.jwtService.sign(newPayload);
+            return { accessToken };
+        }
+        catch (e) {
+            throw new common_1.UnauthorizedException('Invalid refresh token');
+        }
     }
 };
 exports.AuthService = AuthService;

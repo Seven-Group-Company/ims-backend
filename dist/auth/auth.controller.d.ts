@@ -10,8 +10,10 @@ export declare class AuthController {
     }>;
     login(loginDto: LoginDto): Promise<{
         accessToken: string;
+        user: import("../entities/user.entity").User;
     }>;
-    getMe(req: Request & {
-        user: any;
-    }): Promise<import("../entities/user.entity").User | null>;
+    getMe(req: Request): Promise<import("../entities/user.entity").User | null>;
+    refresh(req: Request): Promise<{
+        accessToken: string;
+    }>;
 }

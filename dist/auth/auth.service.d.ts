@@ -15,9 +15,13 @@ export declare class AuthService {
     }>;
     login(email: string, password: string): Promise<{
         accessToken: string;
+        user: User;
     }>;
     getMe(email: string): Promise<User | null>;
     private createCompany;
     private assignInitialRoles;
     private generateToken;
+    refreshToken(refreshToken: string): Promise<{
+        accessToken: string;
+    }>;
 }

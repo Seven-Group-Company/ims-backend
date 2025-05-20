@@ -30,7 +30,15 @@ let AuthController = class AuthController {
         return this.authService.login(loginDto.email, loginDto.password);
     }
     async getMe(req) {
-        return this.authService.getMe(req.user.email);
+        const email = req.user?.email;
+        if (!email) {
+            return null;
+        }
+        return this.authService.getMe(email);
+    }
+    async refresh(req) {
+        const refreshToken = req.body.refreshToken || req.cookies?.refreshToken;
+        return this.authService.refreshToken(refreshToken);
     }
 };
 exports.AuthController = AuthController;
@@ -56,6 +64,13 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "getMe", null);
+__decorate([
+    (0, common_1.Post)('refresh'),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "refresh", null);
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth'),
     __metadata("design:paramtypes", [auth_service_1.AuthService])
