@@ -12,7 +12,7 @@ async function bootstrap() {
     app.useGlobalFilters(new HttpExceptionFilter());
 app.enableCors({
   origin: ['http://localhost:3000', 'https://ims-backend-dusky.vercel.app'],
-  credentials: true,
+  credentials: false,
 });
   await app.listen(process.env.PORT ?? 1000);
 }
