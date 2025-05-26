@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Req, UseGuards } from '@nestjs/common';
+import { Controller, Post, Body, Get, Req, UseGuards, Query } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { Request } from 'express';
@@ -45,8 +45,4 @@ export class AuthController {
     const refreshToken = req.body.refreshToken || req.cookies?.refreshToken;
     return this.authService.refreshToken(refreshToken);
   }
-}
-
-function Query(arg0: string): (target: AuthController, propertyKey: "verifyEmail", parameterIndex: 0) => void {
-  throw new Error('Function not implemented.');
 }

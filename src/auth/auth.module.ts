@@ -9,6 +9,8 @@ import { AuthController } from './auth.controller';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './constants';
 import { JwtStrategy } from './strategies/jwt-strategy';
+import { EmailService } from './email.service'; 
+import { MailerModule } from '@nestjs-modules/mailer';
 
 
 
@@ -19,8 +21,22 @@ import { JwtStrategy } from './strategies/jwt-strategy';
       secret: jwtConstants.secret,
       signOptions: { expiresIn: jwtConstants.expiresIn },
     }),
+    MailerModule.forRoot({
+      transport: {
+        host: 'smtp.example.com',
+        port: 587,
+        secure: false,
+        auth: {
+          user: 'user@example.com',
+          pass: 'password',
+        },
+      },
+      defaults: {
+        from: '"No Reply" <noreply@example.com>',
+      },
+    }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy],
+  providers: [AuthService, JwtStrategy, EmailService],
 })
 export class AuthModule {}

@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+var AuthService_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthService = void 0;
 const typeorm_1 = require("@nestjs/typeorm");
@@ -21,16 +22,22 @@ const user_entity_1 = require("../entities/user.entity");
 const company_entity_1 = require("../entities/company.entity");
 const role_entity_1 = require("../entities/role.entity");
 const common_1 = require("@nestjs/common");
-let AuthService = class AuthService {
+const crypto = require("crypto");
+const common_2 = require("@nestjs/common");
+const email_service_1 = require("./email.service");
+let AuthService = AuthService_1 = class AuthService {
     usersRepository;
     companyRepository;
     roleRepository;
     jwtService;
-    constructor(usersRepository, companyRepository, roleRepository, jwtService) {
+    emailService;
+    logger = new common_2.Logger(AuthService_1.name);
+    constructor(usersRepository, companyRepository, roleRepository, jwtService, emailService) {
         this.usersRepository = usersRepository;
         this.companyRepository = companyRepository;
         this.roleRepository = roleRepository;
         this.jwtService = jwtService;
+        this.emailService = emailService;
     }
     async register(createUserDto) {
         try {
@@ -56,6 +63,13 @@ let AuthService = class AuthService {
                 roles: await this.assignInitialRoles(),
             });
             await this.usersRepository.save(user);
+            const verificationToken = crypto.randomBytes(32).toString('hex');
+            const verificationTokenExpiry = new Date(Date.now() + 24 * 60 * 60 * 1000);
+            await this.usersRepository.update(user.id, {
+                verificationToken,
+                verificationTokenExpiry,
+            });
+            await this.emailService.sendVerificationEmail(user, verificationToken);
             return this.generateToken(user);
         }
         catch (error) {
@@ -64,6 +78,46 @@ let AuthService = class AuthService {
             }
             throw new common_1.InternalServerErrorException('Registration failed');
         }
+    }
+    async verifyEmail(token) {
+        this.logger.log(`Verification attempt for token: ${token}`);
+        const user = await this.usersRepository.findOne({
+            where: { verificationToken: token },
+        });
+        if (!user) {
+            this.logger.warn(`Invalid verification token: ${token}`);
+            throw new common_1.BadRequestException('Invalid verification token');
+        }
+        if (user.verificationTokenExpiry < new Date()) {
+            this.logger.warn(`Expired verification token: ${token}`);
+            throw new common_1.BadRequestException('Verification link has expired');
+        }
+        await this.usersRepository.update(user.id, {
+            isVerified: true,
+            verificationToken: undefined,
+            verificationTokenExpiry: undefined,
+        });
+        this.logger.log(`Email verified for user: ${user.email}`);
+        return { message: 'Email verified successfully' };
+    }
+    async resendVerificationEmail(email) {
+        this.logger.log(`Resend verification requested for: ${email}`);
+        const user = await this.usersRepository.findOne({ where: { email } });
+        if (!user) {
+            this.logger.warn(`Resend attempt for non-existent email: ${email}`);
+            throw new common_1.NotFoundException('User not found');
+        }
+        if (user.isVerified) {
+            this.logger.warn(`Resend attempt for verified email: ${email}`);
+            throw new common_1.BadRequestException('Email already verified');
+        }
+        const verificationToken = crypto.randomBytes(32).toString('hex');
+        const verificationTokenExpiry = new Date(Date.now() + 24 * 60 * 60 * 1000);
+        await this.usersRepository.update(user.id, {
+            verificationToken,
+            verificationTokenExpiry,
+        });
+        await this.emailService.sendVerificationEmail(user, verificationToken);
     }
     async login(email, password) {
         try {
@@ -140,7 +194,7 @@ let AuthService = class AuthService {
     }
 };
 exports.AuthService = AuthService;
-exports.AuthService = AuthService = __decorate([
+exports.AuthService = AuthService = AuthService_1 = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(user_entity_1.User)),
     __param(1, (0, typeorm_1.InjectRepository)(company_entity_1.Company)),
@@ -148,6 +202,7 @@ exports.AuthService = AuthService = __decorate([
     __metadata("design:paramtypes", [typeorm_2.Repository,
         typeorm_2.Repository,
         typeorm_2.Repository,
-        jwt_1.JwtService])
+        jwt_1.JwtService,
+        email_service_1.EmailService])
 ], AuthService);
 //# sourceMappingURL=auth.service.js.map

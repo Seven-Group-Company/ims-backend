@@ -18,6 +18,8 @@ const auth_controller_1 = require("./auth.controller");
 const jwt_1 = require("@nestjs/jwt");
 const constants_1 = require("./constants");
 const jwt_strategy_1 = require("./strategies/jwt-strategy");
+const email_service_1 = require("./email.service");
+const mailer_1 = require("@nestjs-modules/mailer");
 let AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule;
@@ -29,9 +31,23 @@ exports.AuthModule = AuthModule = __decorate([
                 secret: constants_1.jwtConstants.secret,
                 signOptions: { expiresIn: constants_1.jwtConstants.expiresIn },
             }),
+            mailer_1.MailerModule.forRoot({
+                transport: {
+                    host: 'smtp.example.com',
+                    port: 587,
+                    secure: false,
+                    auth: {
+                        user: 'user@example.com',
+                        pass: 'password',
+                    },
+                },
+                defaults: {
+                    from: '"No Reply" <noreply@example.com>',
+                },
+            }),
         ],
         controllers: [auth_controller_1.AuthController],
-        providers: [auth_service_1.AuthService, jwt_strategy_1.JwtStrategy],
+        providers: [auth_service_1.AuthService, jwt_strategy_1.JwtStrategy, email_service_1.EmailService],
     })
 ], AuthModule);
 //# sourceMappingURL=auth.module.js.map

@@ -26,6 +26,12 @@ let AuthController = class AuthController {
     async register(createUserDto) {
         return this.authService.register(createUserDto);
     }
+    async verifyEmail(token) {
+        return this.authService.verifyEmail(token);
+    }
+    async resendVerificationEmail({ email }) {
+        return this.authService.resendVerificationEmail(email);
+    }
     async login(loginDto) {
         return this.authService.login(loginDto.email, loginDto.password);
     }
@@ -49,6 +55,20 @@ __decorate([
     __metadata("design:paramtypes", [create_user_dto_1.CreateUserDto]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "register", null);
+__decorate([
+    (0, common_1.Get)('verify-email'),
+    __param(0, (0, common_1.Query)('token')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "verifyEmail", null);
+__decorate([
+    (0, common_1.Post)('resend-verification'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "resendVerificationEmail", null);
 __decorate([
     (0, common_1.Post)('login'),
     __param(0, (0, common_1.Body)()),

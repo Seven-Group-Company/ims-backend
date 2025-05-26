@@ -7,4 +7,7 @@ export declare class User {
     fullName: string;
     company: Company;
     roles: Role[];
+    isVerified: boolean;
+    verificationToken: string;
+    verificationTokenExpiry: Date;
 }

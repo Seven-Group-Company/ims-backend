@@ -8,6 +8,12 @@ export declare class AuthController {
     register(createUserDto: CreateUserDto): Promise<{
         accessToken: string;
     }>;
+    verifyEmail(token: string): Promise<{
+        message: string;
+    }>;
+    resendVerificationEmail({ email }: {
+        email: string;
+    }): Promise<void>;
     login(loginDto: LoginDto): Promise<{
         accessToken: string;
         user: import("../entities/user.entity").User;
