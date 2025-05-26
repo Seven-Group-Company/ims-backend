@@ -10,10 +10,10 @@ async function bootstrap() {
     logger: winstonConfig,
   });
     app.useGlobalFilters(new HttpExceptionFilter());
-  app.enableCors({
-    origin: 'http://localhost:3000',
-    credentials: true,
-  });
+app.enableCors({
+  origin: ['http://localhost:3000', 'https://ims-backend-dusky.vercel.app'],
+  credentials: true,
+});
   await app.listen(process.env.PORT ?? 1000);
 }
 bootstrap();
