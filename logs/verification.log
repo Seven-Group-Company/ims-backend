@@ -19,3 +19,44 @@
 {"context":"RouterExplorer","level":"info","message":"Mapped {/auth/refresh, POST} route","timestamp":"2025-05-26T11:51:45.786Z"}
 {"context":"NestApplication","level":"info","message":"Nest application successfully started","timestamp":"2025-05-26T11:51:46.588Z"}
 {"context":"HttpExceptionFilter","level":"error","message":"Error 500 - Login failed - /auth/login - POST","stack":[null],"timestamp":"2025-05-26T11:54:13.133Z"}
+{"context":"NestFactory","level":"info","message":"Starting Nest application...","timestamp":"2025-05-27T10:24:33.945Z"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmModule dependencies initialized","timestamp":"2025-05-27T10:24:34.223Z"}
+{"context":"InstanceLoader","level":"info","message":"MailerModule dependencies initialized","timestamp":"2025-05-27T10:24:34.223Z"}
+{"context":"InstanceLoader","level":"info","message":"JwtModule dependencies initialized","timestamp":"2025-05-27T10:24:34.224Z"}
+{"context":"InstanceLoader","level":"info","message":"MailerCoreModule dependencies initialized","timestamp":"2025-05-27T10:24:34.224Z"}
+{"context":"InstanceLoader","level":"info","message":"ConfigHostModule dependencies initialized","timestamp":"2025-05-27T10:24:34.225Z"}
+{"context":"InstanceLoader","level":"info","message":"ConfigModule dependencies initialized","timestamp":"2025-05-27T10:24:34.225Z"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmCoreModule dependencies initialized","timestamp":"2025-05-27T10:24:36.851Z"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmModule dependencies initialized","timestamp":"2025-05-27T10:24:36.851Z"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmModule dependencies initialized","timestamp":"2025-05-27T10:24:36.852Z"}
+{"context":"InstanceLoader","level":"info","message":"AppModule dependencies initialized","timestamp":"2025-05-27T10:24:36.853Z"}
+{"context":"InstanceLoader","level":"info","message":"AuthModule dependencies initialized","timestamp":"2025-05-27T10:24:36.854Z"}
+{"context":"RoutesResolver","level":"info","message":"AuthController {/auth}:","timestamp":"2025-05-27T10:24:36.861Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/auth/register, POST} route","timestamp":"2025-05-27T10:24:36.865Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/auth/verify-email, GET} route","timestamp":"2025-05-27T10:24:36.867Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/auth/resend-verification, POST} route","timestamp":"2025-05-27T10:24:36.868Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/auth/login, POST} route","timestamp":"2025-05-27T10:24:36.869Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/auth/me, GET} route","timestamp":"2025-05-27T10:24:36.870Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/auth/refresh, POST} route","timestamp":"2025-05-27T10:24:36.871Z"}
+{"context":"NestApplication","level":"info","message":"Nest application successfully started","timestamp":"2025-05-27T10:24:37.713Z"}
+{"context":"NestFactory","level":"info","message":"Starting Nest application...","timestamp":"2025-05-27T10:36:44.628Z"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmModule dependencies initialized","timestamp":"2025-05-27T10:36:44.852Z"}
+{"context":"InstanceLoader","level":"info","message":"MailerModule dependencies initialized","timestamp":"2025-05-27T10:36:44.852Z"}
+{"context":"InstanceLoader","level":"info","message":"JwtModule dependencies initialized","timestamp":"2025-05-27T10:36:44.853Z"}
+{"context":"InstanceLoader","level":"info","message":"MailerCoreModule dependencies initialized","timestamp":"2025-05-27T10:36:44.853Z"}
+{"context":"InstanceLoader","level":"info","message":"ConfigHostModule dependencies initialized","timestamp":"2025-05-27T10:36:44.853Z"}
+{"context":"InstanceLoader","level":"info","message":"ConfigModule dependencies initialized","timestamp":"2025-05-27T10:36:44.854Z"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmCoreModule dependencies initialized","timestamp":"2025-05-27T10:36:47.388Z"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmModule dependencies initialized","timestamp":"2025-05-27T10:36:47.389Z"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmModule dependencies initialized","timestamp":"2025-05-27T10:36:47.389Z"}
+{"context":"InstanceLoader","level":"info","message":"AppModule dependencies initialized","timestamp":"2025-05-27T10:36:47.390Z"}
+{"context":"InstanceLoader","level":"info","message":"AuthModule dependencies initialized","timestamp":"2025-05-27T10:36:47.391Z"}
+{"context":"RoutesResolver","level":"info","message":"AuthController {/auth}:","timestamp":"2025-05-27T10:36:47.399Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/auth/register, POST} route","timestamp":"2025-05-27T10:36:47.404Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/auth/verify-email, GET} route","timestamp":"2025-05-27T10:36:47.404Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/auth/resend-verification, POST} route","timestamp":"2025-05-27T10:36:47.405Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/auth/login, POST} route","timestamp":"2025-05-27T10:36:47.406Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/auth/me, GET} route","timestamp":"2025-05-27T10:36:47.417Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/auth/refresh, POST} route","timestamp":"2025-05-27T10:36:47.418Z"}
+{"context":"NestApplication","level":"info","message":"Nest application successfully started","timestamp":"2025-05-27T10:36:48.203Z"}
+{"context":"HttpExceptionFilter","level":"error","message":"Error 500 - Login failed - /auth/login - POST","stack":[null],"timestamp":"2025-05-27T10:40:12.867Z"}

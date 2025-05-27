@@ -1,1 +1,2 @@
 {"context":"HttpExceptionFilter","level":"error","message":"Error 500 - Login failed - /auth/login - POST","stack":[null]}
+{"context":"HttpExceptionFilter","level":"error","message":"Error 500 - Login failed - /auth/login - POST","stack":[null]}

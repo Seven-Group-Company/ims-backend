@@ -12,8 +12,8 @@ async function bootstrap() {
     });
     app.useGlobalFilters(new http_exception_filter_1.HttpExceptionFilter());
     app.enableCors({
-        origin: ['http://localhost:3000', 'https://ims-backend-dusky.vercel.app'],
-        credentials: false,
+        origin: 'http://localhost:3000',
+        credentials: true,
     });
     await app.listen(process.env.PORT ?? 1000);
 }
