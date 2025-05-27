@@ -14,7 +14,6 @@ import {
   BadRequestException,
   NotFoundException
 } from '@nestjs/common';
-import { Throttle } from '@nestjs/throttler';
 import * as crypto from 'crypto';
 import { Logger } from '@nestjs/common';
 import { EmailService } from './email.service';
@@ -34,27 +33,22 @@ export class AuthService {
     private emailService: EmailService,
   ) {}
 
-  async register(createUserDto: CreateUserDto): Promise<{ accessToken: string }> {
+   async register(createUserDto: CreateUserDto): Promise<{ accessToken: string }> {
     try {
-      // Check if email already exists
-      const existingUser = await this.usersRepository.findOne({ 
-        where: { email: createUserDto.email } 
-      });
+      this.logger.log('Registering user:', createUserDto.email);
+      const existingUser = await this.usersRepository.findOne({ where: { email: createUserDto.email } });
       if (existingUser) {
+        this.logger.warn('Email already registered:', createUserDto.email);
         throw new ConflictException('Email already registered');
       }
-
-      // Check if company name already exists
-      const existingCompany = await this.companyRepository.findOne({
-        where: { name: createUserDto.company }
-      });
+      const existingCompany = await this.companyRepository.findOne({ where: { name: createUserDto.company } });
       if (existingCompany) {
+        this.logger.warn('Company name already exists:', createUserDto.company);
         throw new ConflictException('Company name already exists');
       }
-
       const company = await this.createCompany(createUserDto.company);
+      this.logger.log('Created company:', company);
       const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
-      
       const user = this.usersRepository.create({
         email: createUserDto.email,
         password: hashedPassword,
@@ -62,24 +56,21 @@ export class AuthService {
         company,
         roles: await this.assignInitialRoles(),
       });
-
-      
-
+      this.logger.log('Created user entity:', user);
       await this.usersRepository.save(user);
-
-    const verificationToken = crypto.randomBytes(32).toString('hex');
-    const verificationTokenExpiry = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
-
-    await this.usersRepository.update(user.id, {
-      verificationToken,
-      verificationTokenExpiry,
-    });
-
-    // Send verification email
-    await this.emailService.sendVerificationEmail(user, verificationToken);
-
+      this.logger.log('Saved user:', user.email);
+      const verificationToken = crypto.randomBytes(32).toString('hex');
+      const verificationTokenExpiry = new Date(Date.now() + 24 * 60 * 60 * 1000);
+      await this.usersRepository.update(user.id, {
+        verificationToken,
+        verificationTokenExpiry,
+      });
+      this.logger.log('Set verification token for:', user.email);
+      await this.emailService.sendVerificationEmail(user, verificationToken);
+      this.logger.log('Sent verification email to:', user.email);
       return this.generateToken(user);
     } catch (error) {
+      this.logger.error('Registration error:', error);
       if (error instanceof ConflictException) {
         throw error;
       }
@@ -129,7 +120,6 @@ export class AuthService {
       throw new BadRequestException('Email already verified');
     }
 
-    // Generate new token
     const verificationToken = crypto.randomBytes(32).toString('hex');
     const verificationTokenExpiry = new Date(Date.now() + 24 * 60 * 60 * 1000);
 

@@ -1,2 +1,21 @@
 {"context":"HttpExceptionFilter","level":"error","message":"Error 500 - Login failed - /auth/login - POST","stack":[null]}
 {"context":"HttpExceptionFilter","level":"error","message":"Error 500 - Login failed - /auth/login - POST","stack":[null]}
+{"context":"HttpExceptionFilter","level":"error","message":"Error 409 - Email already registered - /auth/register - POST","stack":[null]}
+{"context":"HttpExceptionFilter","level":"error","message":"Error 409 - Company name already exists - /auth/register - POST","stack":[null]}
+{"context":"HttpExceptionFilter","level":"error","message":"Error 500 - Registration failed - /auth/register - POST","stack":[null]}
+{"context":"AuthService","level":"error","message":"Registration error:","stack":[{"message":"Email already registered","name":"ConflictException","options":{},"response":{"error":"Conflict","message":"Email already registered","statusCode":409},"status":409}]}
+{"context":"HttpExceptionFilter","level":"error","message":"Error 409 - Email already registered - /auth/register - POST","stack":[null]}
+{"context":"AuthService","level":"error","message":"Registration error:","stack":[{"code":"EDNS","command":"CONN","errno":-3008,"hostname":"smtp.example.com","syscall":"getaddrinfo"}]}
+{"context":"HttpExceptionFilter","level":"error","message":"Error 500 - Registration failed - /auth/register - POST","stack":[null]}
+{"context":"AuthService","level":"error","message":"Registration error:","stack":[{"code":"EDNS","command":"CONN","errno":-3008,"hostname":"smtp.example.com","syscall":"getaddrinfo"}]}
+{"context":"HttpExceptionFilter","level":"error","message":"Error 500 - Registration failed - /auth/register - POST","stack":[null]}
+{"context":"AuthService","level":"error","message":"Registration error:","stack":[{"code":"EDNS","command":"CONN","errno":-3008,"hostname":"smtp.example.com","syscall":"getaddrinfo"}]}
+{"context":"HttpExceptionFilter","level":"error","message":"Error 500 - Registration failed - /auth/register - POST","stack":[null]}
+{"context":"AuthService","level":"error","message":"Registration error:","stack":[{"code":"EDNS","command":"CONN","errno":-3008,"hostname":"smtp.example.com","syscall":"getaddrinfo"}]}
+{"context":"HttpExceptionFilter","level":"error","message":"Error 500 - Registration failed - /auth/register - POST","stack":[null]}
+{"context":"AuthService","level":"error","message":"Registration error:","stack":[{"code":"EDNS","command":"CONN","errno":-3008,"hostname":"smtp.example.com","syscall":"getaddrinfo"}]}
+{"context":"HttpExceptionFilter","level":"error","message":"Error 500 - Registration failed - /auth/register - POST","stack":[null]}
+{"context":"AuthService","level":"error","message":"Registration error:","stack":[{"message":"Email already registered","name":"ConflictException","options":{},"response":{"error":"Conflict","message":"Email already registered","statusCode":409},"status":409}]}
+{"context":"HttpExceptionFilter","level":"error","message":"Error 409 - Email already registered - /auth/register - POST","stack":[null]}
+{"context":"AuthService","level":"error","message":"Registration error:","stack":[{"code":"ETIMEDOUT","command":"CONN"}]}
+{"context":"HttpExceptionFilter","level":"error","message":"Error 500 - Registration failed - /auth/register - POST","stack":[null]}

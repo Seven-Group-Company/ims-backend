@@ -23,16 +23,16 @@ import { MailerModule } from '@nestjs-modules/mailer';
     }),
     MailerModule.forRoot({
       transport: {
-        host: 'smtp.example.com',
+        host: 'sandbox.smtp.mailtrap.io',
         port: 587,
         secure: false,
         auth: {
-          user: 'user@example.com',
-          pass: 'password',
+          user: '2f7afffe038e69',
+          pass: '00b8353f460f58',
         },
       },
       defaults: {
-        from: '"No Reply" <noreply@example.com>',
+        from: '"GS Inventory App <alikamatu14@gmail.com>',
       },
     }),
   ],

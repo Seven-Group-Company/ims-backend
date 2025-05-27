@@ -60,3 +60,116 @@
 {"context":"RouterExplorer","level":"info","message":"Mapped {/auth/refresh, POST} route","timestamp":"2025-05-27T10:36:47.418Z"}
 {"context":"NestApplication","level":"info","message":"Nest application successfully started","timestamp":"2025-05-27T10:36:48.203Z"}
 {"context":"HttpExceptionFilter","level":"error","message":"Error 500 - Login failed - /auth/login - POST","stack":[null],"timestamp":"2025-05-27T10:40:12.867Z"}
+{"context":"HttpExceptionFilter","level":"error","message":"Error 409 - Email already registered - /auth/register - POST","stack":[null],"timestamp":"2025-05-27T12:40:49.512Z"}
+{"context":"HttpExceptionFilter","level":"error","message":"Error 409 - Company name already exists - /auth/register - POST","stack":[null],"timestamp":"2025-05-27T12:41:04.383Z"}
+{"context":"HttpExceptionFilter","level":"error","message":"Error 500 - Registration failed - /auth/register - POST","stack":[null],"timestamp":"2025-05-27T12:41:14.614Z"}
+{"context":"NestFactory","level":"info","message":"Starting Nest application...","timestamp":"2025-05-27T12:46:33.560Z"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmModule dependencies initialized","timestamp":"2025-05-27T12:46:33.842Z"}
+{"context":"InstanceLoader","level":"info","message":"MailerModule dependencies initialized","timestamp":"2025-05-27T12:46:33.983Z"}
+{"context":"InstanceLoader","level":"info","message":"JwtModule dependencies initialized","timestamp":"2025-05-27T12:46:33.985Z"}
+{"context":"InstanceLoader","level":"info","message":"MailerCoreModule dependencies initialized","timestamp":"2025-05-27T12:46:33.986Z"}
+{"context":"InstanceLoader","level":"info","message":"ConfigHostModule dependencies initialized","timestamp":"2025-05-27T12:46:33.987Z"}
+{"context":"InstanceLoader","level":"info","message":"ConfigModule dependencies initialized","timestamp":"2025-05-27T12:46:33.988Z"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmCoreModule dependencies initialized","timestamp":"2025-05-27T12:46:36.502Z"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmModule dependencies initialized","timestamp":"2025-05-27T12:46:36.504Z"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmModule dependencies initialized","timestamp":"2025-05-27T12:46:36.504Z"}
+{"context":"InstanceLoader","level":"info","message":"AppModule dependencies initialized","timestamp":"2025-05-27T12:46:36.505Z"}
+{"context":"InstanceLoader","level":"info","message":"AuthModule dependencies initialized","timestamp":"2025-05-27T12:46:36.506Z"}
+{"context":"RoutesResolver","level":"info","message":"AuthController {/auth}:","timestamp":"2025-05-27T12:46:36.514Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/auth/register, POST} route","timestamp":"2025-05-27T12:46:36.518Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/auth/verify-email, GET} route","timestamp":"2025-05-27T12:46:36.519Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/auth/resend-verification, POST} route","timestamp":"2025-05-27T12:46:36.521Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/auth/login, POST} route","timestamp":"2025-05-27T12:46:36.521Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/auth/me, GET} route","timestamp":"2025-05-27T12:46:36.525Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/auth/refresh, POST} route","timestamp":"2025-05-27T12:46:36.527Z"}
+{"context":"NestApplication","level":"info","message":"Nest application successfully started","timestamp":"2025-05-27T12:46:37.353Z"}
+{"context":"lemon@gmail.com","level":"info","message":"Registering user:","timestamp":"2025-05-27T12:46:42.347Z"}
+{"context":"lemon@gmail.com","level":"warn","message":"Email already registered:","timestamp":"2025-05-27T12:46:42.569Z"}
+{"context":"AuthService","level":"error","message":"Registration error:","stack":[{"message":"Email already registered","name":"ConflictException","options":{},"response":{"error":"Conflict","message":"Email already registered","statusCode":409},"status":409}],"timestamp":"2025-05-27T12:46:42.570Z"}
+{"context":"HttpExceptionFilter","level":"error","message":"Error 409 - Email already registered - /auth/register - POST","stack":[null],"timestamp":"2025-05-27T12:46:42.571Z"}
+{"context":"lemon12@gmail.com","level":"info","message":"Registering user:","timestamp":"2025-05-27T12:47:10.601Z"}
+{"context":{"id":"5ec28070-cd37-4283-9ff5-8666a4cd090c","name":"SGS Company"},"level":"info","message":"Created company:","timestamp":"2025-05-27T12:47:11.901Z"}
+{"context":{"company":{"id":"5ec28070-cd37-4283-9ff5-8666a4cd090c","name":"SGS Company"},"email":"lemon12@gmail.com","fullName":"Alikamatu Osama","password":"$2b$10$DBX1VhBDDL9.4cMNRje4XeMaqCzTXzmomrUYqBUBE6QZU4ixmHH7e","roles":[{"id":"97066508-eb2a-413f-9496-0983f16a2cfd","name":"Admin","permissions":[{"id":"e023378a-50ae-4505-bc86-588c51f3bc98","name":"manage_inventory"},{"id":"e31b3ed9-4e0f-42dc-9386-4092b3117b44","name":"view_reports"},{"id":"985aaa38-0fff-44c0-9c7d-0cfdd4816cb7","name":"manage_users"},{"id":"743f42c4-496d-47cb-995c-9dcb1cfc557f","name":"manage_roles"}]}]},"level":"info","message":"Created user entity:","timestamp":"2025-05-27T12:47:12.320Z"}
+{"context":"lemon12@gmail.com","level":"info","message":"Saved user:","timestamp":"2025-05-27T12:47:12.862Z"}
+{"context":"lemon12@gmail.com","level":"info","message":"Set verification token for:","timestamp":"2025-05-27T12:47:13.004Z"}
+{"context":"AuthService","level":"error","message":"Registration error:","stack":[{"code":"EDNS","command":"CONN","errno":-3008,"hostname":"smtp.example.com","syscall":"getaddrinfo"}],"timestamp":"2025-05-27T12:47:13.030Z"}
+{"context":"HttpExceptionFilter","level":"error","message":"Error 500 - Registration failed - /auth/register - POST","stack":[null],"timestamp":"2025-05-27T12:47:13.030Z"}
+{"context":"lemon13@gmail.com","level":"info","message":"Registering user:","timestamp":"2025-05-27T12:58:57.581Z"}
+{"context":{"id":"70f680f5-4e8b-4a55-9720-5aa6a2df0fa7","name":"SGS Companies"},"level":"info","message":"Created company:","timestamp":"2025-05-27T12:58:58.831Z"}
+{"context":{"company":{"id":"70f680f5-4e8b-4a55-9720-5aa6a2df0fa7","name":"SGS Companies"},"email":"lemon13@gmail.com","fullName":"Alikamatu Osama","password":"$2b$10$AkNXeNh80swwDRBxq65rWedWW7H1wL0J4ELgUQ90XS2ifr689ZzXm","roles":[{"id":"97066508-eb2a-413f-9496-0983f16a2cfd","name":"Admin","permissions":[{"id":"e023378a-50ae-4505-bc86-588c51f3bc98","name":"manage_inventory"},{"id":"e31b3ed9-4e0f-42dc-9386-4092b3117b44","name":"view_reports"},{"id":"985aaa38-0fff-44c0-9c7d-0cfdd4816cb7","name":"manage_users"},{"id":"743f42c4-496d-47cb-995c-9dcb1cfc557f","name":"manage_roles"}]}]},"level":"info","message":"Created user entity:","timestamp":"2025-05-27T12:58:59.200Z"}
+{"context":"lemon13@gmail.com","level":"info","message":"Saved user:","timestamp":"2025-05-27T12:58:59.739Z"}
+{"context":"lemon13@gmail.com","level":"info","message":"Set verification token for:","timestamp":"2025-05-27T12:58:59.902Z"}
+{"context":"AuthService","level":"error","message":"Registration error:","stack":[{"code":"EDNS","command":"CONN","errno":-3008,"hostname":"smtp.example.com","syscall":"getaddrinfo"}],"timestamp":"2025-05-27T12:58:59.940Z"}
+{"context":"HttpExceptionFilter","level":"error","message":"Error 500 - Registration failed - /auth/register - POST","stack":[null],"timestamp":"2025-05-27T12:58:59.941Z"}
+{"context":"lemon133@gmail.com","level":"info","message":"Registering user:","timestamp":"2025-05-27T13:01:47.062Z"}
+{"context":{"id":"0182915d-4852-4c1e-9bc5-92eec3a3f00b","name":"SG Company"},"level":"info","message":"Created company:","timestamp":"2025-05-27T13:01:48.322Z"}
+{"context":{"company":{"id":"0182915d-4852-4c1e-9bc5-92eec3a3f00b","name":"SG Company"},"email":"lemon133@gmail.com","fullName":"Alikamatu Osama","password":"$2b$10$49blCPtkwF6m/rcp/AduSe8sUfjwrCajLGPsKaJYl6hQ7A8pwa6ey","roles":[{"id":"97066508-eb2a-413f-9496-0983f16a2cfd","name":"Admin","permissions":[{"id":"e023378a-50ae-4505-bc86-588c51f3bc98","name":"manage_inventory"},{"id":"e31b3ed9-4e0f-42dc-9386-4092b3117b44","name":"view_reports"},{"id":"985aaa38-0fff-44c0-9c7d-0cfdd4816cb7","name":"manage_users"},{"id":"743f42c4-496d-47cb-995c-9dcb1cfc557f","name":"manage_roles"}]}]},"level":"info","message":"Created user entity:","timestamp":"2025-05-27T13:01:48.704Z"}
+{"context":"lemon133@gmail.com","level":"info","message":"Saved user:","timestamp":"2025-05-27T13:01:49.240Z"}
+{"context":"lemon133@gmail.com","level":"info","message":"Set verification token for:","timestamp":"2025-05-27T13:01:49.374Z"}
+{"context":"AuthService","level":"error","message":"Registration error:","stack":[{"code":"EDNS","command":"CONN","errno":-3008,"hostname":"smtp.example.com","syscall":"getaddrinfo"}],"timestamp":"2025-05-27T13:01:49.403Z"}
+{"context":"HttpExceptionFilter","level":"error","message":"Error 500 - Registration failed - /auth/register - POST","stack":[null],"timestamp":"2025-05-27T13:01:49.404Z"}
+{"context":"NestFactory","level":"info","message":"Starting Nest application...","timestamp":"2025-05-27T13:02:18.042Z"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmModule dependencies initialized","timestamp":"2025-05-27T13:02:18.211Z"}
+{"context":"InstanceLoader","level":"info","message":"MailerModule dependencies initialized","timestamp":"2025-05-27T13:02:18.211Z"}
+{"context":"InstanceLoader","level":"info","message":"JwtModule dependencies initialized","timestamp":"2025-05-27T13:02:18.212Z"}
+{"context":"InstanceLoader","level":"info","message":"MailerCoreModule dependencies initialized","timestamp":"2025-05-27T13:02:18.214Z"}
+{"context":"InstanceLoader","level":"info","message":"ConfigHostModule dependencies initialized","timestamp":"2025-05-27T13:02:18.215Z"}
+{"context":"InstanceLoader","level":"info","message":"ConfigModule dependencies initialized","timestamp":"2025-05-27T13:02:18.219Z"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmCoreModule dependencies initialized","timestamp":"2025-05-27T13:02:20.958Z"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmModule dependencies initialized","timestamp":"2025-05-27T13:02:20.958Z"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmModule dependencies initialized","timestamp":"2025-05-27T13:02:20.959Z"}
+{"context":"InstanceLoader","level":"info","message":"AppModule dependencies initialized","timestamp":"2025-05-27T13:02:20.959Z"}
+{"context":"InstanceLoader","level":"info","message":"AuthModule dependencies initialized","timestamp":"2025-05-27T13:02:20.960Z"}
+{"context":"RoutesResolver","level":"info","message":"AuthController {/auth}:","timestamp":"2025-05-27T13:02:20.972Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/auth/register, POST} route","timestamp":"2025-05-27T13:02:20.976Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/auth/verify-email, GET} route","timestamp":"2025-05-27T13:02:20.976Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/auth/resend-verification, POST} route","timestamp":"2025-05-27T13:02:20.977Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/auth/login, POST} route","timestamp":"2025-05-27T13:02:20.978Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/auth/me, GET} route","timestamp":"2025-05-27T13:02:20.979Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/auth/refresh, POST} route","timestamp":"2025-05-27T13:02:20.980Z"}
+{"context":"NestApplication","level":"info","message":"Nest application successfully started","timestamp":"2025-05-27T13:02:21.808Z"}
+{"context":"lemon33@gmail.com","level":"info","message":"Registering user:","timestamp":"2025-05-27T13:03:36.876Z"}
+{"context":{"id":"cfdc5539-d640-4c7a-8d96-16fd77ecb10d","name":"S Company"},"level":"info","message":"Created company:","timestamp":"2025-05-27T13:03:38.229Z"}
+{"context":{"company":{"id":"cfdc5539-d640-4c7a-8d96-16fd77ecb10d","name":"S Company"},"email":"lemon33@gmail.com","fullName":"Alikamatu Osama","password":"$2b$10$Ef4IU3E/C5mhhReaEPI80ucd0M4njHDRCunLpdqYmMPbtJFUuZgBG","roles":[{"id":"97066508-eb2a-413f-9496-0983f16a2cfd","name":"Admin","permissions":[{"id":"e023378a-50ae-4505-bc86-588c51f3bc98","name":"manage_inventory"},{"id":"e31b3ed9-4e0f-42dc-9386-4092b3117b44","name":"view_reports"},{"id":"985aaa38-0fff-44c0-9c7d-0cfdd4816cb7","name":"manage_users"},{"id":"743f42c4-496d-47cb-995c-9dcb1cfc557f","name":"manage_roles"}]}]},"level":"info","message":"Created user entity:","timestamp":"2025-05-27T13:03:38.620Z"}
+{"context":"lemon33@gmail.com","level":"info","message":"Saved user:","timestamp":"2025-05-27T13:03:39.204Z"}
+{"context":"lemon33@gmail.com","level":"info","message":"Set verification token for:","timestamp":"2025-05-27T13:03:39.354Z"}
+{"context":"AuthService","level":"error","message":"Registration error:","stack":[{"code":"EDNS","command":"CONN","errno":-3008,"hostname":"smtp.example.com","syscall":"getaddrinfo"}],"timestamp":"2025-05-27T13:03:39.376Z"}
+{"context":"HttpExceptionFilter","level":"error","message":"Error 500 - Registration failed - /auth/register - POST","stack":[null],"timestamp":"2025-05-27T13:03:39.377Z"}
+{"context":"alikamatu@gmail.com","level":"info","message":"Registering user:","timestamp":"2025-05-27T13:43:39.181Z"}
+{"context":{"id":"9b2c792d-d40f-4a16-a994-f3d612d3b446","name":"UPSACompany"},"level":"info","message":"Created company:","timestamp":"2025-05-27T13:43:40.432Z"}
+{"context":{"company":{"id":"9b2c792d-d40f-4a16-a994-f3d612d3b446","name":"UPSACompany"},"email":"alikamatu@gmail.com","fullName":"Alikamatu Osama","password":"$2b$10$2S8AKvhqo6TT8imoakAVYuuG8H5FQ7RR6b/LXYYHjvk8BW9aQh1o6","roles":[{"id":"97066508-eb2a-413f-9496-0983f16a2cfd","name":"Admin","permissions":[{"id":"e023378a-50ae-4505-bc86-588c51f3bc98","name":"manage_inventory"},{"id":"e31b3ed9-4e0f-42dc-9386-4092b3117b44","name":"view_reports"},{"id":"985aaa38-0fff-44c0-9c7d-0cfdd4816cb7","name":"manage_users"},{"id":"743f42c4-496d-47cb-995c-9dcb1cfc557f","name":"manage_roles"}]}]},"level":"info","message":"Created user entity:","timestamp":"2025-05-27T13:43:40.856Z"}
+{"context":"alikamatu@gmail.com","level":"info","message":"Saved user:","timestamp":"2025-05-27T13:43:41.387Z"}
+{"context":"alikamatu@gmail.com","level":"info","message":"Set verification token for:","timestamp":"2025-05-27T13:43:41.521Z"}
+{"context":"AuthService","level":"error","message":"Registration error:","stack":[{"code":"EDNS","command":"CONN","errno":-3008,"hostname":"smtp.example.com","syscall":"getaddrinfo"}],"timestamp":"2025-05-27T13:43:41.554Z"}
+{"context":"HttpExceptionFilter","level":"error","message":"Error 500 - Registration failed - /auth/register - POST","stack":[null],"timestamp":"2025-05-27T13:43:41.555Z"}
+{"context":"NestFactory","level":"info","message":"Starting Nest application...","timestamp":"2025-05-27T13:44:11.595Z"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmModule dependencies initialized","timestamp":"2025-05-27T13:44:11.764Z"}
+{"context":"InstanceLoader","level":"info","message":"MailerModule dependencies initialized","timestamp":"2025-05-27T13:44:11.764Z"}
+{"context":"InstanceLoader","level":"info","message":"JwtModule dependencies initialized","timestamp":"2025-05-27T13:44:11.765Z"}
+{"context":"InstanceLoader","level":"info","message":"MailerCoreModule dependencies initialized","timestamp":"2025-05-27T13:44:11.765Z"}
+{"context":"InstanceLoader","level":"info","message":"ConfigHostModule dependencies initialized","timestamp":"2025-05-27T13:44:11.766Z"}
+{"context":"InstanceLoader","level":"info","message":"ConfigModule dependencies initialized","timestamp":"2025-05-27T13:44:11.767Z"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmCoreModule dependencies initialized","timestamp":"2025-05-27T13:44:14.298Z"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmModule dependencies initialized","timestamp":"2025-05-27T13:44:14.299Z"}
+{"context":"InstanceLoader","level":"info","message":"TypeOrmModule dependencies initialized","timestamp":"2025-05-27T13:44:14.299Z"}
+{"context":"InstanceLoader","level":"info","message":"AppModule dependencies initialized","timestamp":"2025-05-27T13:44:14.301Z"}
+{"context":"InstanceLoader","level":"info","message":"AuthModule dependencies initialized","timestamp":"2025-05-27T13:44:14.303Z"}
+{"context":"RoutesResolver","level":"info","message":"AuthController {/auth}:","timestamp":"2025-05-27T13:44:14.314Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/auth/register, POST} route","timestamp":"2025-05-27T13:44:14.320Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/auth/verify-email, GET} route","timestamp":"2025-05-27T13:44:14.324Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/auth/resend-verification, POST} route","timestamp":"2025-05-27T13:44:14.325Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/auth/login, POST} route","timestamp":"2025-05-27T13:44:14.327Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/auth/me, GET} route","timestamp":"2025-05-27T13:44:14.328Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/auth/refresh, POST} route","timestamp":"2025-05-27T13:44:14.329Z"}
+{"context":"NestApplication","level":"info","message":"Nest application successfully started","timestamp":"2025-05-27T13:44:15.159Z"}
+{"context":"alikamatu@gmail.com","level":"info","message":"Registering user:","timestamp":"2025-05-27T13:44:30.985Z"}
+{"context":"alikamatu@gmail.com","level":"warn","message":"Email already registered:","timestamp":"2025-05-27T13:44:31.686Z"}
+{"context":"AuthService","level":"error","message":"Registration error:","stack":[{"message":"Email already registered","name":"ConflictException","options":{},"response":{"error":"Conflict","message":"Email already registered","statusCode":409},"status":409}],"timestamp":"2025-05-27T13:44:31.687Z"}
+{"context":"HttpExceptionFilter","level":"error","message":"Error 409 - Email already registered - /auth/register - POST","stack":[null],"timestamp":"2025-05-27T13:44:31.688Z"}
+{"context":"alikamau@gmail.com","level":"info","message":"Registering user:","timestamp":"2025-05-27T13:44:42.479Z"}
+{"context":{"id":"f4676df3-6dfd-4def-92b4-da58a31ec9fa","name":"UPSACompanies"},"level":"info","message":"Created company:","timestamp":"2025-05-27T13:44:43.726Z"}
+{"context":{"company":{"id":"f4676df3-6dfd-4def-92b4-da58a31ec9fa","name":"UPSACompanies"},"email":"alikamau@gmail.com","fullName":"Alikamatu Osama","password":"$2b$10$DRrnPx7VAWupl5vgMS7f9.tt1I9zYDjAuujXKB9n9N2F4t8PGHQFK","roles":[{"id":"97066508-eb2a-413f-9496-0983f16a2cfd","name":"Admin","permissions":[{"id":"e023378a-50ae-4505-bc86-588c51f3bc98","name":"manage_inventory"},{"id":"e31b3ed9-4e0f-42dc-9386-4092b3117b44","name":"view_reports"},{"id":"985aaa38-0fff-44c0-9c7d-0cfdd4816cb7","name":"manage_users"},{"id":"743f42c4-496d-47cb-995c-9dcb1cfc557f","name":"manage_roles"}]}]},"level":"info","message":"Created user entity:","timestamp":"2025-05-27T13:44:44.081Z"}
+{"context":"alikamau@gmail.com","level":"info","message":"Saved user:","timestamp":"2025-05-27T13:44:44.615Z"}
+{"context":"alikamau@gmail.com","level":"info","message":"Set verification token for:","timestamp":"2025-05-27T13:44:44.755Z"}
+{"context":"AuthService","level":"error","message":"Registration error:","stack":[{"code":"ETIMEDOUT","command":"CONN"}],"timestamp":"2025-05-27T13:45:14.818Z"}
+{"context":"HttpExceptionFilter","level":"error","message":"Error 500 - Registration failed - /auth/register - POST","stack":[null],"timestamp":"2025-05-27T13:45:14.821Z"}
