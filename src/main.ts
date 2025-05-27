@@ -11,7 +11,7 @@ async function bootstrap() {
   });
     app.useGlobalFilters(new HttpExceptionFilter());
 app.enableCors({
-  origin: '*',
+  origin: 'http://localhost:3000',
   credentials: true,
 });
   await app.listen(process.env.PORT ?? 1000);
