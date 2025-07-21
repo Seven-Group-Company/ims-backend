@@ -10,6 +10,9 @@ exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
 const typeorm_1 = require("@nestjs/typeorm");
+const mailer_1 = require("@nestjs-modules/mailer");
+const handlebars_adapter_1 = require("@nestjs-modules/mailer/dist/adapters/handlebars.adapter");
+const path_1 = require("path");
 const auth_module_1 = require("./auth/auth.module");
 const user_entity_1 = require("./entities/user.entity");
 const company_entity_1 = require("./entities/company.entity");
@@ -22,7 +25,27 @@ exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            config_1.ConfigModule.forRoot(),
+            config_1.ConfigModule.forRoot({ isGlobal: true }),
+            mailer_1.MailerModule.forRoot({
+                transport: {
+                    host: process.env.MAIL_HOST,
+                    port: parseInt(process.env.MAIL_PORT ?? '587', 10),
+                    auth: {
+                        user: process.env.MAIL_USER,
+                        pass: process.env.MAIL_PASSWORD,
+                    },
+                },
+                defaults: {
+                    from: process.env.MAIL_FROM,
+                },
+                template: {
+                    dir: (0, path_1.join)(__dirname, '..', 'templates'),
+                    adapter: new handlebars_adapter_1.HandlebarsAdapter(),
+                    options: {
+                        strict: true,
+                    },
+                },
+            }),
             typeorm_1.TypeOrmModule.forRoot({
                 type: 'postgres',
                 url: process.env.DATABASE_URL,
